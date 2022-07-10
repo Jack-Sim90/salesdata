@@ -41,6 +41,7 @@ df_selection = df.query(
 
 # ----- Main page ------
 
+
 st.title(":bar_chart: MODUSPACE Dashboard")
 st.markdown("###")
 
@@ -120,8 +121,22 @@ fig_country_sales.update_layout(
 
 )
 
-st.plotly_chart(fig_product_sales)
-st.plotly_chart(fig_country_sales)
+st.plotly_chart(fig_product_sales, use_container_width=True)
+st.markdown("---")
+st.plotly_chart(fig_country_sales, use_container_width=True)
+
+with st.container():
+    left_column, right_column = st.columns(2)
+    with left_column:
+        st.subheader("This is done by Jack Sim")
+        st.title("This is a sales report")
+        st.write("[Link to Sales Report >](https://books.zoho.com/app/675823659#/reports/salesorderdetails?filter_by=PreviousMonth&from_date=2022-06-01&order_substatus=&select_columns=%5B%7B%22field%22%3A%22current_sub_status%22%2C%22group%22%3A%22salesorder%22%7D%2C%7B%22field%22%3A%22date%22%2C%22group%22%3A%22salesorder%22%7D%2C%7B%22field%22%3A%22shipment_date%22%2C%22group%22%3A%22salesorder%22%7D%2C%7B%22field%22%3A%22salesorder_number%22%2C%22group%22%3A%22salesorder%22%7D%2C%7B%22field%22%3A%22customer_name%22%2C%22group%22%3A%22salesorder%22%7D%2C%7B%22field%22%3A%22bcy_total%22%2C%22group%22%3A%22salesorder%22%7D%2C%7B%22field%22%3A%22billing_country%22%2C%22group%22%3A%22salesorder%22%7D%2C%7B%22field%22%3A%22payment_terms%22%2C%22group%22%3A%22contact%22%7D%5D&status_filter=draft%2Cpending%2Copen%2Cclosed%2Cpartially_invoiced%2Cinvoiced%2Cnot_invoiced&to_date=2022-06-30)")
+
+    with right_column:
+        st.subheader("FUCK YOU")
+        st.write("testtest")
+
+
 
 
 
