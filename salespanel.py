@@ -74,7 +74,7 @@ with right_column:
 
 st.markdown("----")
 
-# sales by model
+# sales by models
 
 sales_by_product_line = (
     df_selection.groupby(by=["Model"]).sum().sort_values(by="Total")
