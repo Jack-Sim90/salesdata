@@ -3,14 +3,30 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 import numpy as py
-from plotly.subplots import make_subplots
 import plotly.graph_objects as go
+from streamlit_option_menu import option_menu
 
 
 st.set_page_config(page_title="Moduspace Dashboard",
                    page_icon=":bar_chart:",
                    layout="wide"
 )
+
+selected = option_menu(
+    menu_title=None,
+    options=["Home", "Projects","Contact"],
+    icons=["house", "book", "envelope"],
+    menu_icon="cast",
+    default_index=0,
+    orientation="horizontal",
+    )
+
+if selected == "Home":
+    st.title(f"You have selected {selected}")
+if selected == "Projects":
+    st.title(f"You have selected {selected}")
+if selected == "Contact":
+    st.title(f"You have selected {selected}")
 
 
 df = pd.read_csv("Jan.csv")
