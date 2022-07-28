@@ -29,7 +29,7 @@ if selected == "Contact":
     st.title(f"You have selected {selected}")
 
 
-df = pd.read_csv("Jan.csv")
+df = pd.read_csv("salesorder_details.csv")
 
 st.sidebar.header("Please filter here:")
 country = st.sidebar.multiselect(
@@ -44,14 +44,8 @@ date = st.sidebar.multiselect(
     default=df["Date"].unique(),
 )
 
-status = st.sidebar.multiselect(
-    "Select a Status:",
-    options=df["Status"].unique(),
-    default=df["Status"].unique(),
-)
-
 df_selection = df.query(
-    "Country == @country & Date == @date & Status == @status"
+    "Country == @country & Date == @date"
     
 )
 
@@ -62,9 +56,6 @@ st.title(":bar_chart: MODUSPACE Dashboard")
 st.markdown("###")
 
 # TOP KPI's
-
-sgd_currency = 1
-day = 30
 
 total_sales = int(df_selection["Total"].sum())
 average_sales_by_transaction = round(df_selection["Total"].mean(),2)
@@ -79,7 +70,7 @@ with left_column:
 
 with middle_column:
     st.subheader("Average Sales per Day")
-    st.subheader(f"SGD $ {round(total_sales / day):,}"
+    st.subheader(f"SGD $ {round(total_sales):,}"
 
 )
 
@@ -93,31 +84,10 @@ st.markdown("----")
 
 # sales by models
 
-sales_by_product_line = (
-    df_selection.groupby(by=["Model"]).sum().sort_values(by="Total")
-)
-
-fig_product_sales = px.bar(
-    sales_by_product_line,
-    x="Total",
-    y=sales_by_product_line.index,
-    orientation="h",
-    title="<b>Sale by Product Model</b>",
-    color_discrete_sequence=["#0083B8"] * len(sales_by_product_line),
-    template="plotly_white",
-
-)
-
 sales_by_country = (
     df_selection.groupby(by=["Country"]).sum().sort_values(by="Total")
 )
 
-
-fig_product_sales.update_layout(
-    plot_bgcolor="rgba(0,0,0,0)",
-    xaxis=(dict(showgrid=False,))
-
-)   
 
 fig_country_sales = px.bar(
     sales_by_country,
@@ -130,15 +100,12 @@ fig_country_sales = px.bar(
 
 )
 
-
 fig_country_sales.update_layout(
     plot_bgcolor="rgba(0,0,0,0)",
     xaxis=(dict(showgrid=False,))
 
 )
 
-st.plotly_chart(fig_product_sales, use_container_width=True)
-st.markdown("---")
 st.plotly_chart(fig_country_sales, use_container_width=True)
 
 with st.container():
